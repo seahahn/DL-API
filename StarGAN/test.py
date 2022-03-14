@@ -33,6 +33,8 @@ if not os.path.exists(result_dir):
     os.makedirs(result_dir)  # 만약 results 파일이 없으면 생성
 
 ## Test ##
+# 이미지 같은 경우는 나중에 고민 해야하는 문제
+# 경로가 아니라 이미지 자체를 받을 수도 있음
 image_dir = 'D:/Ai Play/DL-API/StarGAN'
 image_name = '윤아.jpg'
 label = [True, False, False, False, True]
