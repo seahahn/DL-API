@@ -6,7 +6,7 @@ import image_proprecessing
 import os
 
 Gen = Generator(64, 5)  # Generator 생성
-G_path = 'D:/AIPlay/DL-API/StarGAN/200000-G.ckpt'  # 200000번 학습한 파라미터를 가져옴.
+G_path = 'StarGAN/200000-G.ckpt'  # 200000번 학습한 파라미터를 가져옴.
 
 ## 사전 학습된 파라미터를 생성한 Generator의 파라미터로 교체하는 과정 ######
 G_pratrained_dict = torch.load(G_path, map_location=lambda storage, loc: storage)
@@ -30,14 +30,14 @@ G_dict.update(G_new_pretrained_dict)
 Gen.load_state_dict(G_new_pretrained_dict)
 ##########################################################################
 
-result_dir = 'D:/AIPlay/DL-API/StarGAN/results'
+result_dir = 'StarGAN/results'
 if not os.path.exists(result_dir):
     os.makedirs(result_dir)  # 만약 results 파일이 없으면 생성
 
 ## Test ##
 # 이미지 같은 경우는 나중에 고민 해야하는 문제
 # 경로가 아니라 이미지 자체를 받을 수도 있음
-image_dir = 'D:/AIPlay/DL-API/StarGAN'
+image_dir = 'StarGAN'
 image_name = '윤아.jpg'
 label = [True, False, False, False, True]
 crop_size = 178
