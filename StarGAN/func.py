@@ -1,4 +1,3 @@
-import torch
 import torch.nn as nn
 
 ### 코드 단순화를 위한 함수들을 정의
