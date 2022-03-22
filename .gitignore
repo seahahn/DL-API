@@ -1,4 +1,7 @@
-DCGAN/
 __pycache__
-fastapi
+
+DCGAN/
+fastapi/
+results/
+
 *.jpg

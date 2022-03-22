@@ -1,12 +1,7 @@
-## Import Lib
 import torch
 from torch.utils import data
 import torchvision.transforms as T
 from PIL import Image
-import os
-# import torchvision
-# from torchvision.datasets import ImageFolder
-# import matplotlib.pyplot as plt
 
 ## CreateDataset
 class CreateDataset(data.Dataset):
