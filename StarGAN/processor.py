@@ -1,6 +1,8 @@
-import torch, torchvision, image_proprecessing
-from generator import Generator
-from func import denorm
+import torch, torchvision
+from io import BytesIO
+from .image_proprecessing import loader, create_domains
+from .generator import Generator
+from .func import denorm
 
 def set_generator():
     Gen = Generator(64, 5)  # Generator 생성
@@ -30,14 +32,15 @@ def set_generator():
     return Gen
 
 def processing(image_file, label=[True, False, False, False, True], crop_size=178, image_size=128):
-    dataset = image_proprecessing.loader(image_file, label, crop_size, image_size)
+    dataset = loader(image_file, label, crop_size, image_size)
     _, org_content = next(iter(dataset))
     select_attrs = ['Black_Hair', 'Blond_Hair', 'Brown_Hair', 'Male', 'Young']
 
     generator = set_generator()
     with torch.no_grad():  # 모델이 학습을 하지 않도록 설정
         for _, (real_img, org_content) in enumerate(dataset):
-            content_target_list = image_proprecessing.create_domains(org_content, 5, select_attrs=select_attrs)
+            print(org_content)
+            content_target_list = create_domains(org_content, 5, select_attrs=select_attrs)
 
             # 이미지 변환
             x_fake_list = []
@@ -49,4 +52,8 @@ def processing(image_file, label=[True, False, False, False, True], crop_size=17
             image_concat = torch.cat(x_fake_list, dim=3)
             grid = torchvision.utils.make_grid(denorm(image_concat.data.cpu()), nrow=1, padding=0)
 
-    return grid
+    processed_img = BytesIO()
+    torchvision.utils.save_image(grid, processed_img)
+    processed_img.seek(0)
+    
+    return processed_img
