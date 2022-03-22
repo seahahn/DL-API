@@ -49,6 +49,7 @@ select_attrs = ['Black_Hair', 'Blond_Hair', 'Brown_Hair', 'Male', 'Young']
 
 with torch.no_grad():  # 모델이 학습을 하지 않도록 설정
     for i, (real_img, org_content) in enumerate(dataset):
+        print(org_content)
         content_target_list = image_proprecessing.create_domains(org_content, 5, select_attrs=select_attrs)
 
         # 이미지 변환
