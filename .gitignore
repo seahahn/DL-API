@@ -1,3 +1,4 @@
 DCGAN/
-
-fastapi/
+__pycache__
+fastapi
+*.jpg

@@ -30,20 +30,21 @@ G_dict.update(G_new_pretrained_dict)
 Gen.load_state_dict(G_new_pretrained_dict)
 ##########################################################################
 
-result_dir = 'StarGAN/results'
-if not os.path.exists(result_dir):
-    os.makedirs(result_dir)  # 만약 results 파일이 없으면 생성
+# result_dir = 'StarGAN/results'
+# if not os.path.exists(result_dir):
+#     os.makedirs(result_dir)  # 만약 results 파일이 없으면 생성
 
 ## Test ##
 # 이미지 같은 경우는 나중에 고민 해야하는 문제
 # 경로가 아니라 이미지 자체를 받을 수도 있음
-image_dir = 'StarGAN'
-image_name = '윤아.jpg'
+# image_dir = 'StarGAN'
+# image_name = '윤아.jpg'
+image_file = "whatever"
 label = [True, False, False, False, True]
 crop_size = 178
 image_size = 128
 
-dataset = image_proprecessing.loader(image_dir, image_name, label, crop_size, image_size)
+dataset = image_proprecessing.loader(image_file, label, crop_size, image_size)
 x_fixed, org_content = next(iter(dataset))
 select_attrs = ['Black_Hair', 'Blond_Hair', 'Brown_Hair', 'Male', 'Young']
 
@@ -60,4 +61,4 @@ with torch.no_grad():  # 모델이 학습을 하지 않도록 설정
         # 이미지 저장
         image_concat = torch.cat(x_fake_list, dim=3)
         grid = torchvision.utils.make_grid(denorm(image_concat.data.cpu()), nrow=1, padding=0)
-        torchvision.utils.save_image(grid, os.path.join(result_dir, 'convert.png'))
+        # torchvision.utils.save_image(grid, os.path.join(result_dir, 'convert.png'))
