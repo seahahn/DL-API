@@ -1,3 +1,7 @@
-DCGAN/
+__pycache__/
 
+DCGAN/
 fastapi/
+results/
+
+*.jpg

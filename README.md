@@ -1,20 +1,22 @@
-# AI-Play Template
+# AI-Play DL-API
 
-AI Play 프로젝트 진행 중 새롭게 Repo 생성할 경우 사용할 템플릿입니다.
+**(추가되는 내용에 맞춰 지속 수정 필요)**
 
-Repo 만드실 때 이걸로 템플릿 선택해서 만드세요!
+Deep Learning 기능을 위한 API 서버
 
-이슈 양식 및 라벨 포함되어 있습니다.
+## Stack
 
-# 사용법
+Python 3.8.12  
+[FastAPI 0.73.0](fastapi.tiangolo.com)
 
-python StarGAN/test.py
+## 준비 사항
 
-test.py의 40~41번째 줄이 이미지의 경로를 받아서 모델에 Input 값으로
-넣어주게 됩니다.
+```
+python -m pip install -r requirements.txt
+```
 
+## 실행
 
-
-※ 주의사항
-본 템플릿 사용 시 Repo를 Private로 설정할 경우, 이슈 템플릿 사용이 불가능합니다.
-(Private Repo에서는 YAML 형식으로 작성된 이슈 템플릿이 적용되지 않음)
+```
+uvicorn main:app --reload
+```
