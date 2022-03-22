@@ -2,7 +2,7 @@ from .processor import processing
 from fastapi import UploadFile
 from fastapi.responses import StreamingResponse
 
-MIME_IMG = ["image/jpg", "image/jpeg", "image/png", "image/gif", "image/bmp"]
+MIME_IMG = ["image/jpg", "image/jpeg", "image/png"]
 
 async def hair_color_gen(img: UploadFile):
     if img.content_type in MIME_IMG:

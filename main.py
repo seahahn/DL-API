@@ -19,4 +19,4 @@ from StarGAN import (
     hair_color_gen
 )
 
-hair_color_gen = app.post("/cv/hair_color_gen")               (hair_color_gen)
+hair_color_gen = app.post("/cv/hair_color_gen")(hair_color_gen)
