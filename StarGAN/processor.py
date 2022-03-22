@@ -39,7 +39,6 @@ def processing(image_file, label=[True, False, False, False, True], crop_size=17
     generator = set_generator()
     with torch.no_grad():  # 모델이 학습을 하지 않도록 설정
         for _, (real_img, org_content) in enumerate(dataset):
-            print(org_content)
             content_target_list = create_domains(org_content, 5, select_attrs=select_attrs)
 
             # 이미지 변환
@@ -53,7 +52,7 @@ def processing(image_file, label=[True, False, False, False, True], crop_size=17
             grid = torchvision.utils.make_grid(denorm(image_concat.data.cpu()), nrow=1, padding=0)
 
     processed_img = BytesIO()
-    torchvision.utils.save_image(grid, processed_img)
+    torchvision.utils.save_image(grid, processed_img, "png")
     processed_img.seek(0)
-    
+
     return processed_img
