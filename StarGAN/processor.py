@@ -1,8 +1,8 @@
 import torch, torchvision
 from io import BytesIO
-from .image_proprecessing import loader, create_domains
-from .generator import Generator
-from .func import denorm
+from StarGAN.image_proprecessing import loader, create_domains
+from StarGAN.generator import Generator
+from StarGAN.func import denorm
 
 def set_generator():
     Gen = Generator(64, 5)  # Generator 생성

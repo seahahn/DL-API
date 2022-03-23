@@ -1,4 +1,4 @@
-from .processor import processing
+from StarGAN.processor import processing
 from fastapi import UploadFile
 from fastapi.responses import StreamingResponse
 
