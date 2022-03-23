@@ -1,4 +1,4 @@
-from .func import ResidualBlock, conv, deconv
+from StarGAN.func import ResidualBlock, conv, deconv
 import torch
 import torch.nn as nn
 
