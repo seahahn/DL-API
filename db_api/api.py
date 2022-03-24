@@ -1,12 +1,19 @@
-from typing import List
-
-from fastapi import Depends, HTTPException
+from fastapi import Depends, HTTPException, Cookie
+from typing import Optional
 from sqlalchemy.orm import Session
 
 from db_api import crud, models, schemas
 from db_api.database import SessionLocal, engine
 
+import jwt, os
+from dotenv import load_dotenv
+load_dotenv()
+
 models.Base.metadata.create_all(bind=engine)
+
+SECRET_KEY = os.getenv('SECRET_KEY')
+ADMIN_MEMBERSHIP_CODE = os.getenv('ADMIN_MEMBERSHIP_CODE')
+JWT_ISS = os.getenv('JWT_ISS')
 
 # Dependency
 def get_db():
@@ -16,11 +23,34 @@ def get_db():
     finally:
         db.close()
 
-def create_post(post: schemas.AiPostCreate, db: Session = Depends(get_db)):
+
+# 관리자 인증이 필요한 기능에 JWT 토큰 인증 과정을 붙이기 위한 데코레이터
+def verify_token(original):
+    def wrapper(db: Session = Depends(get_db), post: Optional[schemas.AiPostCreate] = None, post_id: Optional[int] = None, access_token: Optional[str] = Cookie(None), refresh_token: Optional[str] = Cookie(None)):
+        try:
+            # 토큰을 검증하여 유효한 토큰인지 확인
+            rt = refresh_token
+            at = access_token
+            jwt.decode(rt, SECRET_KEY, issuer=JWT_ISS, algorithms="HS256") # refresh_token이 유효하지 않으면 에러 발생
+            at_data = jwt.decode(at, SECRET_KEY, algorithms="HS256")
+
+            # access token 안에 있는 membership 값이 관리자 계정 코드와 같으면 관리자 계정으로 인증
+            if at_data['membership'] == int(ADMIN_MEMBERSHIP_CODE):
+                return original(post_id, post, db)
+            else:
+                return HTTPException(status_code=401, detail="Unauthorized")
+        except Exception as e:
+            return {"result":False, "token_state":False, "message":str(e)}
+
+    return wrapper
+
+
+@verify_token
+def create_post(_, post: schemas.AiPostCreate, db: Session = Depends(get_db)):
     """AI Play 웹 앱 내 ML/DL 예시 프로젝트 목록의 게시물(post)을 추가하는 기능
 
     Args:
-        post (schemas.AiPostCreate): 게시물 추가를 위한 데이터(스키마로 정의됨)  
+        post (schemas.AiPostCreate): 게시물 추가를 위한 데이터(스키마로 정의됨)
         db (Session, optional): 연결된 DB 객체. Defaults to Depends(get_db).
 
     Returns:
@@ -28,12 +58,14 @@ def create_post(post: schemas.AiPostCreate, db: Session = Depends(get_db)):
     """
     return crud.create_post(db=db, post=post)
 
+
+@verify_token
 def update_post(post_id: int, post: schemas.AiPostCreate, db: Session = Depends(get_db)):
     """AI Play 웹 앱 내 ML/DL 예시 프로젝트 목록의 게시물(post)을 수정하는 기능
 
     Args:
-        post_id (int): 게시물 고유 번호  
-        post (schemas.AiPostCreate): 게시물 수정을 위한 데이터(스키마로 정의됨)  
+        post_id (int): 게시물 고유 번호
+        post (schemas.AiPostCreate): 게시물 수정을 위한 데이터(스키마로 정의됨)
         db (Session, optional): 연결된 DB 객체. Defaults to Depends(get_db).
 
     Returns:
@@ -41,11 +73,12 @@ def update_post(post_id: int, post: schemas.AiPostCreate, db: Session = Depends(
     """
     return crud.update_post(db=db, post_id=post_id, post=post)
 
-def delete_post(post_id: int, db: Session = Depends(get_db)):
+@verify_token
+def delete_post(post_id: int, _, db: Session = Depends(get_db)):
     """AI Play 웹 앱 내 ML/DL 예시 프로젝트 목록의 게시물(post)을 삭제하는 기능
 
     Args:
-        post_id (int): 게시물 고유 번호  
+        post_id (int): 게시물 고유 번호
         db (Session, optional): 연결된 DB 객체. Defaults to Depends(get_db).
 
     Returns:
@@ -53,10 +86,11 @@ def delete_post(post_id: int, db: Session = Depends(get_db)):
     """
     return crud.delete_post(db=db, post_id=post_id)
 
+@verify_token
 def read_posts(db: Session = Depends(get_db)):
-    """AI Play 웹 앱 내 ML/DL 예시 프로젝트 목록의 게시물(post) 전체를 불러오는 기능  
-    
-    관리자 전용 기능으로 사용 예정  
+    """AI Play 웹 앱 내 ML/DL 예시 프로젝트 목록의 게시물(post) 전체를 불러오는 기능
+
+    관리자 전용 기능으로 사용 예정
 
     Args:
         db (Session, optional): 연결된 DB 객체. Defaults to Depends(get_db).
@@ -68,10 +102,10 @@ def read_posts(db: Session = Depends(get_db)):
     return posts
 
 def read_posts_by_div(div: str, db: Session = Depends(get_db)):
-    """div(ml/dl) 값에 해당되는 예시 프로젝트 목록의 게시물(post)들을 불러오는 기능  
+    """div(ml/dl) 값에 해당되는 예시 프로젝트 목록의 게시물(post)들을 불러오는 기능
 
     Args:
-        div (str): 게시물 분류 값. ml 또는 dl.  
+        div (str): 게시물 분류 값. ml 또는 dl.
         db (Session, optional): 연결된 DB 객체. Defaults to Depends(get_db).
 
     Returns:
@@ -81,10 +115,10 @@ def read_posts_by_div(div: str, db: Session = Depends(get_db)):
     return posts
 
 def read_post(post_id: int, db: Session = Depends(get_db)):
-    """게시물 고유 번호(post_id) 값에 해당되는 예시 프로젝트 목록의 게시물(post)을 불러오는 기능  
+    """게시물 고유 번호(post_id) 값에 해당되는 예시 프로젝트 목록의 게시물(post)을 불러오는 기능
 
     Args:
-        post_id (int): 게시물 고유 번호  
+        post_id (int): 게시물 고유 번호
         db (Session, optional): 연결된 DB 객체. Defaults to Depends(get_db).
 
     Raises:
