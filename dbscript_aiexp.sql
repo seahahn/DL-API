@@ -7,7 +7,7 @@ CREATE TABLE ai_example(
 	title VARCHAR(255) NOT NULL,
 	dsc TEXT NOT NULL, -- description
 	link VARCHAR(255) NOT NULL,
-	created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(), -- 가입 시점
+	created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(), -- 생성 시점
 	CONSTRAINT ai_example_pk PRIMARY KEY (idx)
 );
 COMMENT ON TABLE ai_example IS 'AI Play 인공지능 체험용 프로젝트들의 정보';
