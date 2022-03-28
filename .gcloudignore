@@ -8,8 +8,10 @@ results/
 
 .gcloudignore
 .git
+.github
 .gitignore
 
-.env
+backup
+
 .md
 .sql
