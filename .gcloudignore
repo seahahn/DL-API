@@ -10,7 +10,6 @@ results/
 .git
 .gitignore
 
-#!include:.gitignore
-
+.env
 .md
 .sql
