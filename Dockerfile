@@ -15,8 +15,10 @@ COPY . /app
 WORKDIR /app
 
 # RUN: 명령어 실행. 복사된 requirements.txt 파일로 pip로 필요 라이브러리 설치 
-# alembic으로 DB 마이그레이션 진행
 RUN pip install -r requirements.txt
+
+# alembic으로 DB 마이그레이션 진행
+RUN alembic upgrade head
 
 # EXPOSE: 컨테이너 실행 시 노출될 포트 (App Engine default PORT=8080)
 EXPOSE 8080
