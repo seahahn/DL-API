@@ -15,10 +15,9 @@ def get_posts(db: Session):
 
 
 def create_post(db: Session, post: schemas.AiPostCreate):
-    db_post = models.AiPost(**post.dict())
+    db_post = models.AiPost(**post.dict(exclude_unset=True))
     db.add(db_post)
     db.commit()
-    db.refresh(db_post)
     return db_post
 
 def update_post(db: Session, post_id: int, post: schemas.AiPostCreate):
@@ -29,7 +28,6 @@ def update_post(db: Session, post_id: int, post: schemas.AiPostCreate):
         setattr(old_post, key, value)
 
     db.commit()
-    db.refresh(old_post)
     return old_post
 
 def delete_post(db: Session, post_id: int):
