@@ -26,10 +26,10 @@ def get_db():
 
 # 관리자 인증이 필요한 기능에 JWT 토큰 인증 과정을 붙이기 위한 데코레이터
 def verify_token(original):
-    def wrapper(db: Session = Depends(get_db), post: Optional[schemas.AiPostCreate] = None, post_id: Optional[int] = None, access_token: Optional[str] = Header(None)):
+    def wrapper(db: Session = Depends(get_db), post: Optional[schemas.AiPostCreate] = None, post_id: Optional[int] = None, token: Optional[str] = Header(None)):
         try:
             # 토큰을 검증하여 유효한 토큰인지 확인
-            at = access_token
+            at = token
             at_data = jwt.decode(at, SECRET_KEY, algorithms="HS256")
 
             # access token 안에 있는 membership 값이 관리자 계정 코드와 같으면 관리자 계정으로 인증
