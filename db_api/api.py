@@ -44,6 +44,8 @@ def verify_token(original):
 
     return wrapper
 
+def index():
+    return {"message": "Welcome to AI Play Deep Learning API"}
 
 @verify_token
 def create_post(_, post: schemas.AiPostCreate, db: Session = Depends(get_db)):

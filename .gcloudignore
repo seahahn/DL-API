@@ -1,0 +1,16 @@
+__pycache__/
+
+DCGAN/
+fastapi/
+results/
+
+*.jpg
+
+.gcloudignore
+.git
+.gitignore
+
+#!include:.gitignore
+
+.md
+.sql
