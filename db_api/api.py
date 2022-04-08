@@ -47,7 +47,8 @@ def index():
 
 @verify_token
 def create_post(_, post: schemas.AiPostCreate, db: Session = Depends(get_db)):
-    """AI Play 웹 앱 내 ML/DL 예시 프로젝트 목록의 게시물(post)을 추가하는 기능
+    """
+    AI Play 웹 앱 내 ML/DL 예시 프로젝트 목록의 게시물(post)을 추가하는 기능
 
     Args:
         post (schemas.AiPostCreate): 게시물 추가를 위한 데이터(스키마로 정의됨)
@@ -61,7 +62,8 @@ def create_post(_, post: schemas.AiPostCreate, db: Session = Depends(get_db)):
 
 @verify_token
 def update_post(post_id: int, post: schemas.AiPostCreate, db: Session = Depends(get_db)):
-    """AI Play 웹 앱 내 ML/DL 예시 프로젝트 목록의 게시물(post)을 수정하는 기능
+    """
+    AI Play 웹 앱 내 ML/DL 예시 프로젝트 목록의 게시물(post)을 수정하는 기능
 
     Args:
         post_id (int): 게시물 고유 번호
@@ -75,7 +77,8 @@ def update_post(post_id: int, post: schemas.AiPostCreate, db: Session = Depends(
 
 @verify_token
 def delete_post(post_id: int, _, db: Session = Depends(get_db)):
-    """AI Play 웹 앱 내 ML/DL 예시 프로젝트 목록의 게시물(post)을 삭제하는 기능
+    """
+    AI Play 웹 앱 내 ML/DL 예시 프로젝트 목록의 게시물(post)을 삭제하는 기능
 
     Args:
         post_id (int): 게시물 고유 번호
@@ -88,7 +91,8 @@ def delete_post(post_id: int, _, db: Session = Depends(get_db)):
 
 @verify_token
 def read_posts(db: Session = Depends(get_db)):
-    """AI Play 웹 앱 내 ML/DL 예시 프로젝트 목록의 게시물(post) 전체를 불러오는 기능
+    """
+    AI Play 웹 앱 내 ML/DL 예시 프로젝트 목록의 게시물(post) 전체를 불러오는 기능
 
     관리자 전용 기능으로 사용 예정
 
@@ -102,7 +106,8 @@ def read_posts(db: Session = Depends(get_db)):
     return posts
 
 def read_posts_by_div(div: str, db: Session = Depends(get_db)):
-    """div(ml/dl) 값에 해당되는 예시 프로젝트 목록의 게시물(post)들을 불러오는 기능
+    """
+    div(ml/dl) 값에 해당되는 예시 프로젝트 목록의 게시물(post)들을 불러오는 기능
 
     Args:
         div (str): 게시물 분류 값. ml 또는 dl.
@@ -115,7 +120,8 @@ def read_posts_by_div(div: str, db: Session = Depends(get_db)):
     return posts
 
 def read_post(post_id: int, db: Session = Depends(get_db)):
-    """게시물 고유 번호(post_id) 값에 해당되는 예시 프로젝트 목록의 게시물(post)을 불러오는 기능
+    """
+    게시물 고유 번호(post_id) 값에 해당되는 예시 프로젝트 목록의 게시물(post)을 불러오는 기능
 
     Args:
         post_id (int): 게시물 고유 번호
