@@ -1,16 +1,9 @@
-__pycache__/
-
-DCGAN/
-fastapi/
-results/
-
-*.jpg
+#!include:.gitignore
 
 .gcloudignore
 .git
+.github
 .gitignore
-
-#!include:.gitignore
 
 .md
 .sql
