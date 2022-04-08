@@ -10,6 +10,9 @@
 - PyTorch 1.11.0
 - JWT
 - Swagger
+- Google Cloud Platform
+  - App Engine
+  - Cloud Build
 
 <br/>
 
@@ -60,19 +63,19 @@
 <details>
   <summary><b>준비 사항</b></summary>
 
-```
-# 필요한 모듈 및 패키지 설치
-python -m pip install -r requirements.txt
+  ```
+  # 필요한 모듈 및 패키지 설치
+  python -m pip install -r requirements.txt
 
-# DB 테이블 마이그레이션
-# (배포 시에는 배포 완료 후 별도로 시행할 것. 처음 한 번 하면 내용 변경되지 않는 한 또 할 필요 없음.)
-alembic upgrade head
-```
+  # DB 테이블 마이그레이션
+  # (배포 시에는 배포 완료 후 별도로 시행할 것. 처음 한 번 하면 내용 변경되지 않는 한 또 할 필요 없음.)
+  # (Dockerfile 내의 해당 코드를 필요에 따라 주석 처리 혹은 해제 후 배포하기)
+  alembic upgrade head
+  ```
 
-##### 개발 서버 실행
+  ##### 개발 서버 실행
 
-```
-uvicorn main:app --reload
-```
-
+  ```
+  uvicorn main:app --reload
+  ```
 </details>

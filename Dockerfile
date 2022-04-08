@@ -18,7 +18,7 @@ WORKDIR /app
 RUN pip install -r requirements.txt
 
 # 필요한 경우 alembic으로 DB 마이그레이션 진행
-# alembic upgrade head
+# RUN alembic upgrade head
 
 # EXPOSE: 컨테이너 실행 시 노출될 포트 (App Engine default PORT=8080)
 EXPOSE 8080
