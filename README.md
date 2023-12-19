@@ -1,7 +1,7 @@
 # ❇️ AI Play DL-API
 
-- 딥 러닝 체험용 모델 API
-- 머신 러닝 및 딥 러닝 프로젝트 관리 API (관리자 기능)
+- API server for deep learning experience models
+- API server for managing machine learning and deep learning projects (Admin functions)
 
 ## :one: Stack
 
@@ -16,66 +16,66 @@
 
 <br/>
 
-## :two: 배포 플랫폼 및 서버 주소
+## :two: Deployment Platform and Server Address
 
-- 플랫폼 : Google App Engine
-- 주소 : https://ai-play-dl-api.du.r.appspot.com
-
-<br/>
-
-## :three: API 명세
-
-- DOCS(Swagger) : https://ai-play-dl-api.du.r.appspot.com/docs
-
-| Method                | URL                | Description                                                                               |
-| --------------------- | ------------------ | ----------------------------------------------------------------------------------------- |
-| AI 프로젝트 관리 기능 |                    |                                                                                           |
-| POST                  | /posts/            | 웹 앱 내 인공지능 체험 프로젝트 목록의 게시물(post)을 추가하는 기능(관리자 전용)          |
-| PUT                   | /posts/{post_id}   | 웹 앱 내 인공지능 체험 프로젝트 목록의 게시물(post)을 수정하는 기능(관리자 전용)          |
-| DELETE                | /posts/{post_id}   | 웹 앱 내 인공지능 체험 프로젝트 목록의 게시물(post)을 삭제하는 기능(관리자 전용)          |
-| GET                   | /posts/            | 웹 앱 내 인공지능 체험 프로젝트 목록의 게시물(post) 전체를 불러오는 기능(관리자 전용)     |
-| GET                   | /posts/{div}       | div(ml/dl) 값에 해당되는 체험 프로젝트 목록의 게시물(post)들을 불러오는 기능              |
-| GET                   | /posts/{post_id}   | 게시물 고유 번호(post_id) 값에 해당되는 체험 프로젝트 목록의 게시물(post)을 불러오는 기능 |
-| 딥 러닝 체험 기능     |                    |                                                                                           |
-| POST                  | /cv/hair_color_gen | 인물 이미지 넣으면 머리색 바꿔주는 딥 러닝 모델 API                                       |
+- Platform: Google App Engine
+- Address: [https://ai-play-dl-api.du.r.appspot.com](https://ai-play-dl-api.du.r.appspot.com)
 
 <br/>
 
-## :four: 트러블 슈팅 기록
+## :three: API Specifications
 
-- https://github.com/AI-Play/DL-API/discussions
+- DOCS(Swagger): [https://ai-play-dl-api.du.r.appspot.com/docs](https://ai-play-dl-api.du.r.appspot.com/docs)
+
+| Method                   | URL                | Description                                                                              |
+| ------------------------ | ------------------ | ---------------------------------------------------------------------------------------- |
+| AI Project Management    |                    |                                                                                          |
+| POST                     | /posts/            | Add a post to the list of AI experience projects in the web app (Admin only)             |
+| PUT                      | /posts/{post_id}   | Edit a post in the list of AI experience projects in the web app (Admin only)            |
+| DELETE                   | /posts/{post_id}   | Delete a post from the list of AI experience projects in the web app (Admin only)        |
+| GET                      | /posts/            | Retrieve all posts in the list of AI experience projects in the web app (Admin only)     |
+| GET                      | /posts/{div}       | Retrieve posts in the list of experience projects corresponding to the div (ml/dl) value |
+| GET                      | /posts/{post_id}   | Retrieve a post from the list of AI experience projects based on the post_id value       |
+| Deep Learning Experience |                    |                                                                                          |
+| POST                     | /cv/hair_color_gen | Deep learning model API that changes hair color when a person image is input             |
 
 <br/>
 
-## :five: 배포 과정
+## :four: Troubleshooting Records
 
-1. app.yaml, Dockerfile 작성(port 8080으로 변경 필요 -> ∵ App Engine의 default port 값)
-2. .env 배포용으로 변경 (∵ 이를 읽어들임)
+- [DL-API Discussions](https://github.com/AI-Play/DL-API/discussions)
+
+<br/>
+
+## :five: Deployment Process
+
+1. Write app.yaml and Dockerfile (change port to 8080 -> ∵ default port value for App Engine)
+2. Change .env for deployment (as it is read)
 3. gcloud app create --project=ai-play-dl-api
 4. gcloud components install app-engine-python
-5. gcloud app deploy (이전에 Google App Engine 프로젝트에 결제 설정 되어 있는지 확인 필요)
-6. 이후 Cloud Build에 Github Repo를 연결하여 배포 진행
+5. gcloud app deploy (Check if payment is set up for the Google App Engine project before deploying)
+6. Connect the Github Repo to Cloud Build for deployment
 
 <br/>
 
-## :six: 개발 환경 준비 사항
+## :six: Development Environment Setup
 
 <details>
-  <summary><b>준비 사항</b></summary>
+  <summary><b>Prerequisites</b></summary>
 
-  ```
-  # 필요한 모듈 및 패키지 설치
-  python -m pip install -r requirements.txt
+```
+# Install necessary modules and packages
+python -m pip install -r requirements.txt
 
-  # DB 테이블 마이그레이션
-  # (배포 시에는 배포 완료 후 별도로 시행할 것. 처음 한 번 하면 내용 변경되지 않는 한 또 할 필요 없음.)
-  # (Dockerfile 내의 해당 코드를 필요에 따라 주석 처리 혹은 해제 후 배포하기)
-  alembic upgrade head
-  ```
+# DB table migration
+# (To be done separately after deployment, unless the content changes. Uncomment or comment out the relevant code in the Dockerfile before deployment as needed)
+alembic upgrade head
+```
 
-  ##### 개발 서버 실행
+##### Run Development Server
 
-  ```
-  uvicorn main:app --reload
-  ```
+```
+uvicorn main:app --reload
+```
+
 </details>
