@@ -6,5 +6,9 @@ results/
 
 *.jpg
 
-.env
+.env*
 envs.yaml
+
+.DS_Store
+
+/.venv
