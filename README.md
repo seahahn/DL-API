@@ -61,13 +61,21 @@
 ## :six: Development Environment Setup
 
 <details>
-  <summary><b>Prerequisites</b></summary>
+  <summary><b>Expand</b></summary>
 
 ```
-# Install necessary modules and packages
-python -m pip install -r requirements.txt
+// Create a new virtual environment
+// 1. Move to the directory which has python version we need to use
+// 2. Create a new virtual environment
+python -m venv /path/to/new/virtual/environment
 
-# DB table migration
+// 3. Activate the virtual environment
+source /path/to/new/virtual/environment/bin/activate
+
+# 4. Install necessary modules and packages
+pip install -r requirements.txt
+
+# 5. DB table migration
 # (To be done separately after deployment, unless the content changes. Uncomment or comment out the relevant code in the Dockerfile before deployment as needed)
 alembic upgrade head
 ```
