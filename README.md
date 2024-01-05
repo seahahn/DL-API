@@ -18,14 +18,14 @@
 
 ## :two: Deployment Platform and Server Address
 
-- Platform: Google App Engine
-- Address: [https://ai-play-dl-api.du.r.appspot.com](https://ai-play-dl-api.du.r.appspot.com)
+- Platform: ~~Google App Engine~~ -> Heroku
+- Address: [https://ai-play-deep-learning-api-d942ba501d22.herokuapp.com/](https://ai-play-deep-learning-api-d942ba501d22.herokuapp.com/)
 
 <br/>
 
 ## :three: API Specifications
 
-- DOCS(Swagger): [https://ai-play-dl-api.du.r.appspot.com/docs](https://ai-play-dl-api.du.r.appspot.com/docs)
+- DOCS(Swagger): [https://ai-play-deep-learning-api-d942ba501d22.herokuapp.com/docs](https://ai-play-deep-learning-api-d942ba501d22.herokuapp.com/docs)
 
 | Method                   | URL                | Description                                                                              |
 | ------------------------ | ------------------ | ---------------------------------------------------------------------------------------- |

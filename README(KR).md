@@ -18,14 +18,14 @@
 
 ## :two: 배포 플랫폼 및 서버 주소
 
-- 플랫폼 : Google App Engine
-- 주소 : https://ai-play-dl-api.du.r.appspot.com
+- 플랫폼 : ~~Google App Engine~~ -> Heroku
+- 주소 : [https://ai-play-deep-learning-api-d942ba501d22.herokuapp.com](https://ai-play-deep-learning-api-d942ba501d22.herokuapp.com)
 
 <br/>
 
 ## :three: API 명세
 
-- DOCS(Swagger) : https://ai-play-dl-api.du.r.appspot.com/docs
+- DOCS(Swagger) : [https://ai-play-deep-learning-api-d942ba501d22.herokuapp.com/docs](https://ai-play-deep-learning-api-d942ba501d22.herokuapp.com/docs)
 
 | Method                | URL                | Description                                                                               |
 | --------------------- | ------------------ | ----------------------------------------------------------------------------------------- |
