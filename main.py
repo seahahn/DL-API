@@ -10,7 +10,7 @@ origins = [
     "https://front-web-xi.vercel.app"
 ]
 
-origin_regex = "https://.*\.aiplay\.online"
+origin_regex = "https://.*\.aiplay\.app"
 
 app.add_middleware(
     CORSMiddleware,
